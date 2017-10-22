@@ -1041,6 +1041,7 @@ class ProcessLocalLinks(docutils.transforms.Transform):
                 if target_ext:
                     target = target_docname + target_ext
                     target = target.lower()
+                target = '/' + target
                 linktext = node.astext()
                 xref = sphinx.addnodes.pending_xref(
                     reftype=reftype, reftarget=target, refdomain=refdomain,
@@ -1072,7 +1073,7 @@ class CreateSectionLabels(docutils.transforms.Transform):
             title = section.children[0].astext()
             link_id = title.replace(' ', '-')
             section['ids'] = [link_id]
-            label = env.docname + file_ext + '#' + link_id
+            label = '/' + env.docname + file_ext + '#' + link_id
             label = label.lower()
             env.domaindata['std']['labels'][label] = (
                 env.docname, link_id, title)
@@ -1081,7 +1082,7 @@ class CreateSectionLabels(docutils.transforms.Transform):
 
             # Create a label for the whole document using the first section:
             if i_still_have_to_create_the_document_label:
-                label = env.docname.lower() + file_ext
+                label = '/' + env.docname.lower() + file_ext
                 env.domaindata['std']['labels'][label] = (
                     env.docname, '', title)
                 env.domaindata['std']['anonlabels'][label] = (
@@ -1093,7 +1094,7 @@ class CreateSectionLabels(docutils.transforms.Transform):
             title = sig['ids'][0]
             link_id = title.replace(' ', '-')
             sig['ids'] = [link_id]
-            label = env.docname + file_ext + '#' + link_id
+            label = '/' + env.docname + file_ext + '#' + link_id
             label = label.lower()
             env.domaindata['std']['labels'][label] = (
                 env.docname, link_id, title)
